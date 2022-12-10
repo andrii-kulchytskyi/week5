@@ -13,20 +13,30 @@ export type TodoListsType = {
 
 function App() {
 
-
-    let [todoLists, setTodoLists] = useState<TodoListsType[]>([
-        {id: v1(), title: "string", filter: "all"},
-        {id: v1(), title: "string2", filter: "all"}]
-    )
+    let todolistID1=v1();
+    let todolistID2=v1();
 
 
-    let [tasks, setTasks] = useState([
-        {id: v1(), title: "HTML&CSS", isDone: true},
-        {id: v1(), title: "JS", isDone: true},
-        {id: v1(), title: "ReactJS", isDone: false},
-        {id: v1(), title: "Rest API", isDone: false},
-        {id: v1(), title: "GraphQL", isDone: false},
-    ]);
+
+    // let [todoLists, setTodoLists] = useState<TodoListsType[]>([
+    //     {id: v1(), title: "string", filter: "all"},
+    //     {id: v1(), title: "string2", filter: "all"}]
+    // )
+    //
+    //
+    // let [tasks, setTasks] = useState([
+    //     {id: v1(), title: "HTML&CSS", isDone: true},
+    //     {id: v1(), title: "JS", isDone: true},
+    //     {id: v1(), title: "ReactJS", isDone: false},
+    //     {id: v1(), title: "Rest API", isDone: false},
+    //     {id: v1(), title: "GraphQL", isDone: false},
+    // ]);
+
+    function changeFilter(todoListID: string, value: FilterValuesType) {
+        // setFilter(value);
+        setTodoLists(todoLists.map(el => el.id === todoListID ? {...el, filter: value} : el))
+    }
+
     // let [filter, setFilter] = useState<FilterValuesType>("all");
 
 
@@ -51,18 +61,14 @@ function App() {
     }
 
 
-    let tasksForTodolist = tasks;
-
-    if (todoLists[0].filter === "active") {
-        tasksForTodolist = tasks.filter(t => t.isDone === false);
-    }
-    if (filter === "completed") {
-        tasksForTodolist = tasks.filter(t => t.isDone === true);
-    }
-
-    function changeFilter(value: FilterValuesType) {
-        // setFilter(value);
-    }
+    // let tasksForTodolist = tasks;
+    //
+    // if (todoLists[0].filter === "active") {
+    //     tasksForTodolist = tasks.filter(t => t.isDone === false);
+    // }
+    // if (todoLists[0].filter === "completed") {
+    //     tasksForTodolist = tasks.filter(t => t.isDone === true);
+// }
 
 
     return (
@@ -74,7 +80,7 @@ function App() {
                         title={el.title}
                         todolistID={el.id}
                         key={el.id}
-                        tasks={tasksForTodolist}
+                        tasks={tasks}
                         removeTask={removeTask}
                         changeFilter={changeFilter}
                         addTask={addTask}
